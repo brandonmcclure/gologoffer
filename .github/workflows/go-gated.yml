@@ -1,12 +1,7 @@
-name: Go
+name: go-gated
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 0'
-  push:
-    branches:
-      - main  # Trigger CI on main branch
   pull_request:
     branches:
       - main  # Trigger gated pipeline on PR to main
@@ -30,6 +25,6 @@ jobs:
           # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
           version: latest
-          args: release --clean
+          args: release --clean --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
