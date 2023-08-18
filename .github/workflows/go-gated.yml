@@ -1,21 +1,13 @@
-name: Go
+name: go-gated
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 0'
-  push:
-    branches:
-      - main  # Trigger CI on main branch
   pull_request:
     branches:
       - main  # Trigger gated pipeline on PR to main
 
 jobs:
   build:
-    strategy:
-      matrix:
-        go-version: ['1.19','1.20','1.21']
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +17,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: 1.21
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
