@@ -15,8 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        go-version: ['1.21']
-        platform: [ "windows/amd64", "linux/arm", "linux/arm64", "linux/amd64", "linux/386" ]   # target multiple platforms
+        go-version: ['1.19','1.20','1.21']
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,6 +24,8 @@ jobs:
           fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
